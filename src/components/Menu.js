@@ -1,52 +1,61 @@
 import React from "react";
-import recipes from '../recipes';
+import recipes from "../recipes";
 import Swal from "sweetalert2";
 
 const Menu = () => {
+//   console.log(recipes[0]);
+const handleOrder = (id) => {
+    console.log(id);
 
-    const handleOrder = (id) => {
-        console.log(id, "id is clicked");
-        Swal.fire({
-            title: 'Confirm Order?',
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            denyButtonText: `Back to Menu`,
-          }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-              Swal.fire('Order Confirmed!', '', 'success')
-            } else if (result.isDenied) {
-              Swal.fire('Order NOT Confirmed!', '', 'info')
-            }
-          })
-    }
-    return (
-        <div className="menu-container">
-            <div className="menu-header">
-                <h2>This weeks specials!</h2>
-                <button>Order Now!</button>
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: 'Do you want to confirm order?',
+        text: "You won't be able to cancel this!",
+        icon: 'warning',
+        showCancelButton: false,
+        confirmButtonText: 'Yes, place order!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Order being processed.',
+            'Your order has been confirmed.',
+            'Order successfully placed.'
+          )
+        } 
+      })
+
+}
+  return (
+    <div className="menu-container">
+      <div className="menu-header">
+        <h2>This weeks specials!</h2>
+        <button>Online Menu</button>
+      </div>
+      <div className="cards">
+        {recipes.map((recipe) => (
+          <div key={recipe.id} className="menu-items">
+            <img src={recipe.image} alt="" />
+            <div className="menu-content">
+              <div className="heading">
+                <h5>{recipe.title}</h5>
+                <p>${recipe.price}</p>
+              </div>
+              <p>{recipe.description}</p>
+              <button className="orderbtn" onClick={() => handleOrder(recipe.id)}>Order Now</button>
             </div>
-
-            <div className="cards">
-                {
-                    recipes.map(recipe => <div key={recipe.id} className="menu-items">
-                        <img src={recipe.image} />
-                        <div className="menu-content">
-                            <div className="heading">
-                                <h5>{recipe.title}</h5>
-                                <p>{recipe.price}</p>
-                            </div>
-                            <p>{recipe.description}</p>
-                            <button className="orderBtn" onClick={() => handleOrder(recipe.id)}>Order Now!</button>
-                        </div>
-                    </div>)
-                }
-            </div>
-
-        </div>
-
-    );
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Menu;
