@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const BookingForm = () => {
+const BookingForm = (props) => {
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [guests, setGuests] = useState("");
@@ -29,7 +29,7 @@ const BookingForm = () => {
                         <select id="res-time>" value={time} onChange={(e) => setTime(e.target.value)}>
                             <option value="">Pick a Time</option>
                             {
-                                props.availableTimes.availableTimes.map(availableTimes => {return <option key={availableTimes}>{availableTimes}</option>})
+                                props.initializeTimes.initializeTimes.map(initializeTimes => {return <option key={initializeTimes}>{initializeTimes}</option>})
                             }
                         </select>
                         </div>
