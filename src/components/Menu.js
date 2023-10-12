@@ -1,11 +1,25 @@
 import React from "react";
 import recipes from '../recipes';
+import Swal from "sweetalert2";
 
 const Menu = () => {
 
     const handleOrder = (id) => {
         console.log(id, "id is clicked");
-        
+        Swal.fire({
+            title: 'Confirm Order?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: `Back to Menu`,
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              Swal.fire('Order Confirmed!', '', 'success')
+            } else if (result.isDenied) {
+              Swal.fire('Order NOT Confirmed!', '', 'info')
+            }
+          })
     }
     return (
         <div className="menu-container">
