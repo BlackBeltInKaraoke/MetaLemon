@@ -26,23 +26,23 @@ const BookingForm = (props) => {
         <form onSubmit={handleSumbit}>
           <fieldset className="formField">
             <div>
-              <label htmlFor="book-date">Choose Date:</label>
-              <input id="book-date" value={date} onChange={(e) => handleChange(e.target.value)} type="date" required/>
+              <label htmlFor="res-date">Choose Date:</label>
+              <input id="res-date" value={date} onChange={(e) => handleChange(e.target.value)} type="date" required/>
             </div>
             <div>
-              <label htmlFor="book-time">Choose Time:</label>
-              <select id="book-time" value={times} onChange={(e) => setTimes(e.target.value)} required>
+              <label htmlFor="res-time">Choose Time:</label>
+              <select id="res-time" value={times} onChange={(e) => setTimes(e.target.value)} required>
                 <option value="">Select a Time</option>
                {props.availableTimes.availableTimes.map(availableTimes => {return <option key={availableTimes}>{availableTimes}</option>})}
               </select>
             </div>
             <div>
-              <label htmlFor="book-guests">Number of Guests:</label>
-              <input id="book-guests" min="1" value={guests} onChange={(e) => {setGuests(e.target.value)}} type={"number"} placeholder={0} max={10} required></input>
+              <label htmlFor="res-guests">Number of Guests:</label>
+              <input id="res-guests" min="1" value={guests} onChange={(e) => {setGuests(e.target.value)}} type={"number"} placeholder={0} max={12} required></input>
             </div>
             <div>
-              <label htmlFor="book-occasion">Occasion:</label>
-              <select id="book-occasion" key={occasion} value={occasion} onChange={(e) => setOccasion(e.target.value)} required>
+              <label htmlFor="res-occasion">Occasion:</label>
+              <select id="res-occasion" key={occasion} value={occasion} onChange={(e) => setOccasion(e.target.value)} required>
                 <option value="">Select an Option</option>
                 <option>Birthday</option>
                 <option>Anniversary</option>
